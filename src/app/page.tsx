@@ -152,9 +152,9 @@ export default function Home() {
           Consideramos uma média de <br />
           15 minutos até você dormir.
         </p>
-        <p className="md:hidden block text-white text-sm font-semibold">
+        {/*   <p className="md:hidden block text-white text-sm font-semibold">
           Uma boa noite de sono consiste entre <br /> 5-6 ciclos de 90 minutos.
-        </p>
+        </p> */}
 
         <p className="hidden md:block text-white text-sm font-semibold">
           Consideramos uma média de 15 minutos até você dormir.
@@ -163,7 +163,7 @@ export default function Home() {
           Uma boa noite de sono consiste entre 5-6 ciclos de 90 minutos.
         </p>
 
-        <p className="text-white font-semibold text-centermt-4">
+        <p className="text-white font-semibold text-center mt-4">
           {isWakeUpMode
             ? "Se você dormir em um desses horários, completará ciclos de sono antes de acordar."
             : "Se você acordar em um desses horários, completará ciclos de sono completos."}
