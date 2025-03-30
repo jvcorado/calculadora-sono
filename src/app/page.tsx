@@ -75,14 +75,14 @@ export default function Home() {
   }, []);
 
   // Solicita permissão para notificação
-  useEffect(() => {
+  /*  useEffect(() => {
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
     }
-  }, []);
+  }, []); */
 
   // Define alarme com base no horário do ciclo
-  const handleSetAlarm = (horario: string) => {
+  /*   const handleSetAlarm = (horario: string) => {
     const [hour, minute] = horario.split(":").map(Number);
     const now = dayjs();
     let alarmTime = now.hour(hour).minute(minute).second(0);
@@ -105,7 +105,7 @@ export default function Home() {
       }
     }, msUntilAlarm);
   };
-
+ */
   return (
     <div className="w-full min-h-screen py-12 flex flex-col gap-5 justify-center items-center bg relative">
       <div className="flex items-center justify-center">
@@ -177,7 +177,7 @@ export default function Home() {
           .map((fase, index) => (
             <div
               key={index}
-              onClick={() => handleSetAlarm(fase.horario)}
+              /*    onClick={() => handleSetAlarm(fase.horario)} */
               className="card !md:w-[380px] cursor-pointer hover:ring-2 hover:ring-blue-400 transition"
             >
               <div className="flex items-center justify-end px-4">
