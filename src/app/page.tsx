@@ -129,16 +129,16 @@ export default function Home() {
         </div>
       </button>
 
-      <div className="text-center">
-        <p className="text-white font-semibold">
-          Consideramos um média de 15 minutos até você dormir.
+      <div className="text-center px-6">
+        <p className="text-white text-sm font-semibold">
+          Consideramos uma média de 15 minutos até você dormir.
         </p>
 
-        <p className="text-white font-semibold">
-          Uma boa noite de sono consiste em 5-6 ciclos de 90 minutos.
+        <p className="text-white text-sm font-semibold">
+          Uma boa noite de sono consiste entre 5-6 ciclos de 90 minutos.
         </p>
 
-        <p className="text-white font-semibold text-center px-6 mt-4">
+        <p className="text-white font-semibold text-centermt-4">
           {isWakeUpMode
             ? "Se você dormir em um desses horários, completará ciclos de sono antes de acordar."
             : "Se você acordar em um desses horários, completará ciclos de sono completos."}{" "}
