@@ -4,7 +4,6 @@ import { StaticTimePicker } from "@mui/x-date-pickers";
 import { useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 
@@ -53,13 +52,12 @@ export default function Home() {
       </span>
 
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
-        <DemoItem>
-          <StaticTimePicker
-            value={time}
-            onChange={handleTimeChange}
-            className="!bg-transparent !text-white "
-          />
-        </DemoItem>
+        <StaticTimePicker
+          value={time}
+          onChange={handleTimeChange}
+          className="!bg-transparent !text-white"
+          ampm={false}
+        />
       </LocalizationProvider>
 
       <button onClick={handleGoToBedNow} className="button">

@@ -239,7 +239,8 @@
   display: none;
 }
 
-.css-jdw6pu-MuiTypography-root-MuiPickersToolbarText-root {
+/* Texto grande no topo do relógio (hora atual) */
+.MuiPickersToolbarText-root {
   font-size: 70px !important;
   margin-top: 0px !important;
   font-weight: 600 !important;
@@ -247,70 +248,39 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif !important;
 }
 
-.css-654y5o-MuiTypography-root-MuiPickersToolbarText-root-MuiTimePickerToolbar-separator {
-  font-size: 70rem;
-  margin-bottom: 10px !important;
-  color: white !important;
-}
-
-.css-6mw38q-MuiTypography-root {
-  display: none !important;
-}
-
-.css-10qtiir-MuiPickersToolbar-content {
+/* Centraliza a hora no topo */
+.MuiPickersToolbar-content {
   justify-content: center !important;
 }
 
-.css-1j9v0by-MuiClock-root {
-  background: rgba(255, 255, 255, 0.1) !important; /* fundo semi-transparente */
+/* Estiliza o relógio: vidro + sombra */
+.MuiClock-root {
+  background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
   transition: background 0.3s, transform 0.3s !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
   border-radius: 16px !important;
-  padding: 20px;
+  padding: 20px !important;
 }
 
-/* .css-pncb2q-MuiClockPointer-root {
-  width: 2px;
-  background-color: #ffffff;
-  position: absolute;
-  left: calc(50% - 1px);
-  bottom: 50%;
-  transform-origin: center bottom 0px;
-}
-
-.css-f53ilk-MuiClockPointer-thumb {
-  width: 4px;
-  height: 4px;
-  background-color: #e10d0d;
-  border-radius: 50%;
-  position: absolute;
-  top: -21px;
-  left: calc(50% - 18px);
-  border: 16px solid #ffffff;
-  box-sizing: content-box;
-  background-color: #ffffff;
-}
- */
-
-.css-13cnpq9-MuiPickersLayout-root .MuiPickersLayout-actionBar {
+/* Esconde a action bar (botões como OK/Cancelar) */
+.MuiPickersLayout-actionBar {
   display: none !important;
 }
 
-.css-5wpvtd-MuiClockNumber-root {
-  color: rgb(255 255 255) !important;
+/* Números do relógio (todos) */
+.MuiClockNumber-root {
+  color: white !important;
 }
 
-.css-18tn1jy-MuiClockNumber-root {
-  color: rgb(255 255 255) !important;
+/* Botões de seta para mudar hora/minuto */
+.MuiPickersArrowSwitcher-button {
+  color: white !important;
 }
 
-.css-xp4e7m-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button.Mui-disabled {
-  background-color: transparent;
-  color: rgb(255 255 255) !important;
-}
-
-.css-1bsiu4i-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button {
-  color: rgb(255 255 255) !important;
+/* Botões de seta desabilitados */
+.MuiPickersArrowSwitcher-button.Mui-disabled {
+  background-color: transparent !important;
+  color: white !important;
 }
