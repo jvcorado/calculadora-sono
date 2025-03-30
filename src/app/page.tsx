@@ -32,14 +32,18 @@ export default function Home() {
   const totalMinutes = time.hour() * 60 + time.minute();
   const fases = Array.from({ length: 6 }, (_, i) => {
     const ciclos = 90 * (i + 1);
+    const horas = Math.floor(ciclos / 60);
+    const minutos = ciclos % 60;
+    const duracao = `${horas}h${minutos > 0 ? minutos : ""}`;
 
     if (isWakeUpMode) {
-      const minutosFase = totalMinutes - ciclos;
+      const minutosFase = totalMinutes - ciclos - vigilia;
       const horarioAjustado = (minutosFase + 1440) % 1440;
       return {
         horario: minutesToTime(horarioAjustado),
         nome: `Ciclo ${i + 1}${i >= 4 ? " (recomendado)" : ""}`,
         icone: 6 - i < 4 ? "moon" : "sun",
+        duracao,
       };
     } else {
       const minutosFase = totalMinutes + ciclos + vigilia;
@@ -48,6 +52,7 @@ export default function Home() {
         horario: minutesToTime(horarioAjustado),
         nome: `Ciclo ${i + 1}${i >= 4 ? " (recomendado)" : ""}`,
         icone: i < 3 ? "moon" : "sun",
+        duracao,
       };
     }
   });
@@ -125,11 +130,9 @@ export default function Home() {
       </button>
 
       <div className="text-center">
-        {!isWakeUpMode && (
-          <p className="text-white font-semibold">
-            Consideramos um média de 15 minutos até você dormir.
-          </p>
-        )}
+        <p className="text-white font-semibold">
+          Consideramos um média de 15 minutos até você dormir.
+        </p>
 
         <p className="text-white font-semibold">
           Uma boa noite de sono consiste em 5-6 ciclos de 90 minutos.
@@ -157,7 +160,11 @@ export default function Home() {
                 )}
               </div>
 
-              <p className="time-text">{fase.horario}</p>
+              <div className="flex items-end gap-2 ">
+                <p className="time-text">{fase.horario}</p>
+                <p className="pb-3.5">{fase.duracao}</p>
+              </div>
+
               <p className="day-text">{fase.nome}</p>
             </div>
           ))}
