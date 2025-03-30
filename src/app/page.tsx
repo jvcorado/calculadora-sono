@@ -20,7 +20,6 @@ export default function Home() {
     }
   };
 
-  // Função para converter minutos em HH:MM
   const minutesToTime = (totalMinutes: number) => {
     const hours = Math.floor(totalMinutes / 60) % 24;
     const minutes = totalMinutes % 60;
@@ -66,22 +65,55 @@ export default function Home() {
     setTime(dayjs());
   };
 
+  // Atualiza hora atual
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(dayjs());
-    }, 1000); // ou 60000 se quiser atualizar a cada minuto
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
+  // Solicita permissão para notificação
+  useEffect(() => {
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+  }, []);
+
+  // Define alarme com base no horário do ciclo
+  const handleSetAlarm = (horario: string) => {
+    const [hour, minute] = horario.split(":").map(Number);
+    const now = dayjs();
+    let alarmTime = now.hour(hour).minute(minute).second(0);
+
+    if (alarmTime.isBefore(now)) {
+      alarmTime = alarmTime.add(1, "day");
+    }
+
+    const msUntilAlarm = alarmTime.diff(now);
+
+    alert(`Alarme definido para ${alarmTime.format("HH:mm")}`);
+
+    setTimeout(() => {
+      if (Notification.permission === "granted") {
+        new Notification("⏰ Ciclo de sono!", {
+          body: `Chegou a hora: ${alarmTime.format("HH:mm")}`,
+        });
+      } else {
+        alert(`⏰ Chegou a hora: ${alarmTime.format("HH:mm")}`);
+      }
+    }, msUntilAlarm);
+  };
+
   return (
-    <div className="w-full min-h-screen py-12  flex flex-col gap-5 justify-center items-center bg relative">
-      <div className="flex items-center justify-center ">
-        <span className="  text-white font-semibold text-lg capitalize  ">
+    <div className="w-full min-h-screen py-12 flex flex-col gap-5 justify-center items-center bg relative">
+      <div className="flex items-center justify-center">
+        <span className="text-white font-semibold text-lg capitalize">
           {weekday}, {month} {day}
         </span>
 
-        <div className="absolute top-3 right-3 flex flex-col items-center  gap-2 text-white">
+        <div className="absolute top-3 right-3 flex flex-col items-center gap-2 text-white">
           <span className="font-semibold">
             {isWakeUpMode ? "Acordar" : "Dormir"}
           </span>
@@ -105,20 +137,6 @@ export default function Home() {
         />
       </LocalizationProvider>
 
-      {/*    <div className="flex gap-2 items-center justify-center text-white">
-        <p>tempo que levo para dormir:</p>
-        <input
-          type="number"
-          max={59}
-          min={1}
-          value={vigilia}
-          onChange={(e) => setVigilia(Number(e.target.value))}
-          className="w-12 bg-transparent text-white outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-        />
-
-        <p>minutos</p>
-      </div> */}
-
       <button onClick={handleGoToBedNow} className="button">
         <div className="blob1"></div>
         <div className="blob2"></div>
@@ -130,19 +148,25 @@ export default function Home() {
       </button>
 
       <div className="text-center px-6">
-        <p className="text-white text-sm font-semibold">
-          Consideramos uma média de 15 minutos até você dormir.
+        <p className="md:hidden block text-white text-sm font-semibold">
+          Consideramos uma média de <br />
+          15 minutos até você dormir.
+        </p>
+        <p className="md:hidden block text-white text-sm font-semibold">
+          Uma boa noite de sono consiste entre <br /> 5-6 ciclos de 90 minutos.
         </p>
 
-        <p className="text-white text-sm font-semibold">
+        <p className="hidden md:block text-white text-sm font-semibold">
+          Consideramos uma média de 15 minutos até você dormir.
+        </p>
+        <p className="hidden md:block text-white text-sm font-semibold">
           Uma boa noite de sono consiste entre 5-6 ciclos de 90 minutos.
         </p>
 
         <p className="text-white font-semibold text-centermt-4">
           {isWakeUpMode
             ? "Se você dormir em um desses horários, completará ciclos de sono antes de acordar."
-            : "Se você acordar em um desses horários, completará ciclos de sono completos."}{" "}
-          <br />
+            : "Se você acordar em um desses horários, completará ciclos de sono completos."}
         </p>
       </div>
 
@@ -151,7 +175,11 @@ export default function Home() {
           .slice()
           .reverse()
           .map((fase, index) => (
-            <div key={index} className="card !md:w-[380px]">
+            <div
+              key={index}
+              onClick={() => handleSetAlarm(fase.horario)}
+              className="card !md:w-[380px] cursor-pointer hover:ring-2 hover:ring-blue-400 transition"
+            >
               <div className="flex items-center justify-end px-4">
                 {fase.icone === "moon" ? (
                   <Moon size={24} color="white" />
@@ -160,7 +188,7 @@ export default function Home() {
                 )}
               </div>
 
-              <div className="flex items-end gap-2 ">
+              <div className="flex items-end gap-2">
                 <p className="time-text">{fase.horario}</p>
                 <p className="pb-3.5">{fase.duracao}</p>
               </div>
