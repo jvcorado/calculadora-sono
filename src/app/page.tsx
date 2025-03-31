@@ -36,7 +36,7 @@ export default function Home() {
     const duracao = `${horas}h${minutos > 0 ? minutos : ""}`;
 
     if (isWakeUpMode) {
-      const minutosFase = totalMinutes - ciclos;
+      const minutosFase = totalMinutes - ciclos - 15;
       const horarioAjustado = (minutosFase + 1440) % 1440;
       return {
         horario: minutesToTime(horarioAjustado),
