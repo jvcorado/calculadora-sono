@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import { useState, useEffect } from "react";
 import { StaticTimePicker } from "@mui/x-date-pickers";
@@ -257,3 +257,4 @@ export default function MedicineApp() {
     </div>
   );
 }
+ */
